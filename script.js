@@ -2,7 +2,7 @@ document.getElementById("templateForm").addEventListener("submit", async functio
   e.preventDefault();
 
   const templateName = document.getElementById("templateName").value.trim();
-  const templateType = document.getElementById("templateType").value;
+  let templateType = document.getElementById("templateType").value.trim();
   const fontLink1 = document.getElementById("fontLink1").value.trim();
   const fontLink2 = document.getElementById("fontLink2").value.trim();
   const files = document.getElementById("presentationFiles").files;
@@ -10,6 +10,11 @@ document.getElementById("templateForm").addEventListener("submit", async functio
   if (!templateName || !templateType || !fontLink1 || files.length === 0) {
     alert("Please fill all required fields!");
     return;
+  }
+
+  // Fallback jika templateType kosong
+  if (!templateType) {
+    templateType = "Unknown";
   }
 
   const zip = new JSZip();
