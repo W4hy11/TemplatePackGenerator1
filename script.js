@@ -12,13 +12,11 @@ document.getElementById("templateForm").addEventListener("submit", async functio
     return;
   }
 
-  // Fallback jika templateType kosong
   if (!templateType) {
     templateType = "Unknown";
   }
 
   const zip = new JSZip();
-
   const folderName = `${templateName} ${templateType} Presentation Template`;
   const root = zip.folder(folderName);
 
@@ -37,6 +35,10 @@ document.getElementById("templateForm").addEventListener("submit", async functio
   const readmeText = getReadmeText(templateType, templateName);
   docFolder.file("readme.txt", readmeText);
 
+  // Tampilkan deskripsi ke halaman
+  document.getElementById("readmeContent").innerText = readmeText;
+  document.getElementById("readmePreview").style.display = "block";
+
   // Help file
   const helpFileMap = {
     "PowerPoint": "Help File PowerPoint.pdf",
@@ -45,10 +47,9 @@ document.getElementById("templateForm").addEventListener("submit", async functio
   };
 
   const helpFileName = helpFileMap[templateType];
-  const helpFilePath = `./${helpFileName}`;  // Assuming the help file is in the same directory
+  const helpFilePath = `./${helpFileName}`;
 
   try {
-    // Attempting to read the help file from the same directory as the HTML file
     const helpBlob = await fetch(helpFilePath).then(r => r.blob());
     docFolder.file(helpFileName, helpBlob);
   } catch (err) {
@@ -105,8 +106,8 @@ function getReadmeText(type, name) {
 - Based on Master Slides${colorTheme}
 - 16:9 Wide Screen Ratio
 - Picture Placeholder
-${extraNote}
 - Easily Editable!
+${extraNote}
 
 **File Included :**
 - ${type} ${extension} file${includePPT}
