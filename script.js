@@ -99,8 +99,6 @@ function getReadmeText(type, name) {
 
   return `${title}
 
-This is a professional template designed for ${type}.
-
 **Main Feature :**
 - All graphics resizable and editable
 - Used and recommended free web fonts
